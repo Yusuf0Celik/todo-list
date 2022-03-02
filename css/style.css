@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+html,
+body {
+  background-color: #141414;
+  color: white;
+}
+
+.title {
+  font-size: 3rem;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.todo-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7rem;
+}
+
+.todo-input input {
+  width: 25rem;
+  height: 3rem;
+  padding: 0.5rem;
+  outline: none;
+  border: none;
+}
+
+.add-todo {
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  outline: none;
+  background-color: white;
+  color: #141414;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 250ms;
+}
+
+.add-todo:hover {
+  background-color: #ffffff80;
+  color: white;
+}
+
+.todo-list-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}
+
+.todo-list {
+  list-style-type: none;
+}
+
+.list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-text {
+  width: 20rem;
+  background-color: white;
+  color: black;
+  height: 2rem;
+  padding: 0.5rem;
+  margin: 0.1rem 0;
+}
+
+.list-done {
+  background-color: #35ff0d;
+  height: 2rem;
+  padding: 0.5rem;
+  margin: 0.1rem 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.list-remove {
+  background-color: #ff2a2a;
+  height: 2rem;
+  padding: 0.5rem;
+  margin: 0.1rem 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
