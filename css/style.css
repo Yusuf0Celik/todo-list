@@ -49,8 +49,8 @@ body {
 }
 
 .add-todo:hover {
-  background-color: #ffffff80;
-  color: white;
+  background-color: #ffffffde;
+  color: black;
 }
 
 .todo-list-div {
@@ -88,6 +88,10 @@ body {
   cursor: pointer;
 }
 
+.list-done:hover {
+  background-color: #35ff0dcd;
+}
+
 .list-remove {
   background-color: #ff2a2a;
   height: 2rem;
@@ -96,4 +100,8 @@ body {
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.list-remove:hover {
+  background-color: #ff2a2acd;
 }
