@@ -33,7 +33,7 @@ function addTodo(event) {
   checkIcon.classList.add("bx","bx-check")
   const trashIcon = document.createElement("i");
   trashIcon.classList.add("bx", "bx-trash")
-  // // Icons
+  // // ^Icons^
   // ^Create Todo buttons^
   list.appendChild(todoListItem);
   todoListItem.appendChild(todoText);
@@ -47,8 +47,5 @@ function addTodo(event) {
 }
 
 function removeTodo() {
-  // const item = e.target;
-  // if(item.classList[0] === "list-remove") {
-  //   input.remove();
-  // }
+  
 }
