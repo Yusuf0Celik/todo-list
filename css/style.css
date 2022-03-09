@@ -109,3 +109,12 @@ body {
 .list-remove:hover {
   background-color: #ff2a2acd;
 }
+
+.bx-trash,
+.bx-check {
+  pointer-events: none;
+}
+
+.todo-checked {
+  background-color: #80ff66;
+}

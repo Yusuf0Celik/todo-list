@@ -2,13 +2,9 @@ console.log("main.js loaded");
 
 const addTodoBtn = document.querySelector(".add-todo");
 const checkTodoBtn = document.querySelector(".list-done");
-const removeTodoBtn = document.querySelector(".list-remove");
+const todoInput = document.querySelector(".todo-input");
 
 addTodoBtn.addEventListener("click", addTodo);
-// checkTodoBtn.addEventListener("click", checkTodo);
-if (removeTodoBtn){
-removeTodoBtn.addEventListener("click", removeTodo);
-}
 
 function addTodo(event) {
   event.preventDefault();
@@ -44,8 +40,30 @@ function addTodo(event) {
   // ^Append all children^
   input.value = "";
   // ^Remove input value on submit^
+  if (buttonRemove){
+    buttonRemove.addEventListener("click", removeTodo);
+    }
+  // addEventListener for removeTodo
+  if (buttonDone){
+    buttonDone.addEventListener("click", checkTodo);
+  }
+  // addEventListener for checkTodo
 }
 
-function removeTodo() {
-  
+function removeTodo(e) {
+  if (e.target.classList.contains("list-remove")) {
+    e.target.parentElement.remove() 
+  }
+  // remove the parent of the button aka list-item
+}
+
+function checkTodo(e) {
+  if (e.target.parentElement.children[0].classList.contains("todo-checked")) {
+    // ^check if div has class todo-checked^
+    e.target.parentElement.children[0].classList.remove("todo-checked")
+    // ^if it has todo-checked remove todo-checked^
+  } else {
+    e.target.parentElement.children[0].classList.add("todo-checked")
+    // ^if it doesnt have todo-checked add todo-checked^
+  }
 }
