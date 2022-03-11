@@ -56,11 +56,13 @@ function addTodo(event) {
 }
 
 function removeTodo(e) {
-  if (e.target.classList.contains("list-remove")) {
-    const todo = e.target.parentElement.remove() 
-    removeLocalTodos(todo)
+  const item = e.target;
+  if (item.classList.contains("list-remove")) {
+    item.parentElement.remove()
   }
   // remove the parent of the button aka list-item
+  const todo = item.parentElement;
+  removeLocaltodos(todo);
 }
 
 function checkTodo(e) {
@@ -111,29 +113,30 @@ function enterTodo(event) {
   }
 }
 
-function saveLocalTodos(todo) {
+function saveLocalTodos() {
   let todos;
   if (localStorage.getItem("todos") === null) {
-    // ^Check if I have local todo^
+    // ^Check of ik local todos heb^
     todos = [];
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
+  // ^Als ik local todos heb breng ze terug^
+  const todo = input.value
   todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(todos))
-  // ^If I do have local todo get it back^
 }
 
 function getTodos() {
   let todos;
   if (localStorage.getItem("todos") === null) {
-    // ^Check if i have local todo^
+    // ^Check of ik local todos heb^
     todos = [];
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
-  // ^If I do have local todo get it back^
-  todos.forEach(function(todo) {
+  // ^Als ik local todos heb breng ze terug^
+  todos.forEach( function(todo) {
     const todoListItem = document.createElement("li");
     todoListItem.classList.add("list-item")
     // ^Create Todo List Item^
@@ -171,4 +174,17 @@ function getTodos() {
     }
     // addEventListener for checkTodo
   });
+}
+
+function removeLocaltodos(todo) {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    // ^Check of ik local todos heb^
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  const todoIndex = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoIndex), 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
