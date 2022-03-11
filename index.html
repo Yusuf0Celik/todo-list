@@ -17,14 +17,17 @@
       TODO List
     </div>
     <div class="todo-input">
-      <div class="input-div">
         <input class="input" type="text">
-      </div>
-      <div class="button">
         <button class="add-todo">
           <i class='bx bx-plus-medical'></i>
         </button>
-      </div>
+        <div class="filter-dropdown">
+          <select name="todos" class="filter-todos">
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="uncompleted">Uncompleted</option>
+          </select>
+        </div>
     </div>
     <div class="todo-list-div">
       <ul class="todo-list"></ul>
