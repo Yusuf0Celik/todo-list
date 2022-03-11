@@ -115,7 +115,7 @@ body {
   pointer-events: none;
 }
 
-.todo-checked {
+.completed .list-text {
   background-color: #80ff66;
 }
 

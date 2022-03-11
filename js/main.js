@@ -7,6 +7,7 @@ const list = document.querySelector(".todo-list");
 const input = document.querySelector(".input");
 const filterSelect = document.querySelector(".filter-todos");
 
+document.addEventListener("DOMContentLoaded", getTodos);
 addTodoBtn.addEventListener("click", addTodo);
 todoInput.addEventListener("keyup", enterTodo);
 filterSelect.addEventListener("click", filterTodos)
@@ -21,6 +22,8 @@ function addTodo(event) {
   todoText.classList.add("list-text")
   todoText.innerText = input.value;
   // ^Create Todo Text div^
+  saveLocalTodos(todoInput.value )
+  // ^Add todo to local storage^
   const buttonDone = document.createElement("button");
   buttonDone.classList.add("list-done")
   // // ^Done button^
@@ -54,35 +57,49 @@ function addTodo(event) {
 
 function removeTodo(e) {
   if (e.target.classList.contains("list-remove")) {
-    e.target.parentElement.remove() 
+    const todo = e.target.parentElement.remove() 
+    removeLocalTodos(todo)
   }
   // remove the parent of the button aka list-item
 }
 
 function checkTodo(e) {
-  if (e.target.parentElement.children[0].classList.contains("todo-checked")) {
-    // ^check if div has class todo-checked^
-    e.target.parentElement.children[0].classList.remove("todo-checked")
-    // ^if it has todo-checked remove todo-checked^
+  if (e.target.parentElement.classList.contains("completed")) {
+    // ^check if div has class completed^
+    e.target.parentElement.classList.remove("completed")
+    // ^if it has completed remove completed^
   } else {
-    e.target.parentElement.children[0].classList.add("todo-checked")
-    // ^if it doesnt have todo-checked add todo-checked^
+    e.target.parentElement.classList.add("completed")
+    // ^if it doesnt have completed add completed^
   }
 }
 
 function filterTodos(e) {
   const todos = list.childNodes;
-  todos.forEach(function(todo) {
+  todos.forEach(function(todos) {
     switch (e.target.value) {
+      // ^als je klikt op de target kijkt hij naar de value^
       case "all":
-        todo.style.display = "flex";
+        // ^als de value all is doet hij dit^
+        todos.style.display = "flex";
         break;
-      case "completed":
-        if (todo.classList.contains("completed")) {
-          todo.style.display = "flex";
+        // break eindigd de case
+        case "completed":
+        // ^als de value completed is doet hij dit^
+        if (todos.classList.contains("completed")) {
+          todos.style.display = "flex";
         } else {
-          todo.style.display = "none";
+          todos.style.display = "none";
         }
+        break;
+        case "uncompleted":
+        // ^als de value uncompleted is doet hij dit^
+        if (!todos.classList.contains("completed")) {
+          todos.style.display = "flex";
+        } else {
+          todos.style.display = "none";
+        }
+        break;
     }
   })
 }
@@ -92,4 +109,66 @@ function enterTodo(event) {
     event.preventDefault();
     addTodoBtn.click();
   }
+}
+
+function saveLocalTodos(todo) {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    // ^Check if I have local todo^
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos))
+  // ^If I do have local todo get it back^
+}
+
+function getTodos() {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    // ^Check if i have local todo^
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  // ^If I do have local todo get it back^
+  todos.forEach(function(todo) {
+    const todoListItem = document.createElement("li");
+    todoListItem.classList.add("list-item")
+    // ^Create Todo List Item^
+    const todoText = document.createElement("div");
+    todoText.classList.add("list-text")
+    todoText.innerText = todo;
+    // ^Add todo to local storage^
+    const buttonDone = document.createElement("button");
+    buttonDone.classList.add("list-done")
+    // // ^Done button^
+    const buttonRemove = document.createElement("button");
+    buttonRemove.classList.add("list-remove")
+    // // ^Remove button^
+    const checkIcon = document.createElement("i");
+    checkIcon.classList.add("bx","bx-check")
+    const trashIcon = document.createElement("i");
+    trashIcon.classList.add("bx", "bx-trash")
+    // // ^Icons^
+    // ^Create Todo buttons^
+    list.appendChild(todoListItem);
+    todoListItem.appendChild(todoText);
+    todoListItem.appendChild(buttonDone);
+    todoListItem.appendChild(buttonRemove);
+    buttonDone.appendChild(checkIcon);
+    buttonRemove.appendChild(trashIcon);
+    // ^Append all children^
+    input.value = "";
+    // ^Remove input value on submit^
+    if (buttonRemove){
+      buttonRemove.addEventListener("click", removeTodo);
+      }
+    // addEventListener for removeTodo
+    if (buttonDone){
+      buttonDone.addEventListener("click", checkTodo);
+    }
+    // addEventListener for checkTodo
+  });
 }
